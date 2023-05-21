@@ -1,18 +1,29 @@
 import throttle from 'lodash.throttle';
-
+const STORAGE_KEY = 'feedback-form-state';
 const formEl = document.querySelector('.feedback-form');
 const textareaEl = document.querySelector('.feedback-form textarea');
 const inputEl = document.querySelector('.feedback-form input');
-const STORAGE_KEY = 'feedback-form-state';
 
-formEl.addEventListener('submit', onFormSubmit);
-
-// formEl.addEventListener('input', throttle(onTextareaInput, 1000));
-formEl.addEventListener('input', throttle(onTextInput, 1000));
-
-populateTextarea();
 
 let formData = {};
+
+
+formEl.addEventListener('submit', onFormSubmit);
+formEl.addEventListener('input', throttle(onTextInput, 1000));
+
+// populateTextarea();
+
+
+function onTextInput(e) {
+  formData[e.target.name] = e.target.value;
+  console.log(formData);
+  formData;
+}
+
+
+
+
+
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -20,35 +31,40 @@ function onFormSubmit(e) {
   localStorage.removeItem(STORAGE_KEY);
 }
 
-// function onTextareaInput(e) {
-//   const message = e.target.value;
-//   localStorage.setItem(STORAGE_KEY, message);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function onTextInput(e) {
+//   formData[e.target.name] = e.target.value;
+//   console.log(formData);
+//   const formDataJSON = JSON.stringify(formData);
+//   localStorage.setItem(STORAGE_KEY, formDataJSON);
 // }
 
 // function populateTextarea() {
+//   // const data = JSON.parse(STORAGE_KEY)
+//   // console.log(data)
 //   const savedMessage = localStorage.getItem(STORAGE_KEY);
 //   if (savedMessage) {
 
-//     textareaEl.value = savedMessage;
+//       const { email, message } = JSON.parse(savedMessage);
+//       inputEl.value = email;
+//       textareaEl.value = message;
+//       console.dir(formEl);
 //   }
 // }
-
-function onTextInput(e) {
-  formData[e.target.name] = e.target.value;
-  console.log(formData);
-  const formDataJSON = JSON.stringify(formData);
-  localStorage.setItem(STORAGE_KEY, formDataJSON);
-}
-
-function populateTextarea() {
-  // const data = JSON.parse(STORAGE_KEY)
-  // console.log(data)
-  const savedMessage = localStorage.getItem(STORAGE_KEY);
-  if (savedMessage) {
-
-      const { email, message } = JSON.parse(savedMessage);
-      inputEl.value = email;
-      textareaEl.value = message;
-      console.dir(formEl);
-  }
-}
