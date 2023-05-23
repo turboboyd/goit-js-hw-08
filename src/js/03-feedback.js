@@ -7,16 +7,14 @@ const textareaEl = formEl.querySelector('.feedback-form textarea');
 formEl.addEventListener('submit', onFormSubmit);
 formEl.addEventListener('input', throttle(onTextInput, 500));
 
-populateTextarea();
+populateForm();
 
 let savedDataJSON = localStorage.getItem(STORAGE_KEY);
 
 const formData = JSON.parse(savedDataJSON) || {};
 
-
-
 function onTextInput(e) {
-  formData [e.target.name] = e.target.value;
+  formData[e.target.name] = e.target.value;
 
   const formDataJSON = JSON.stringify(formData);
   localStorage.setItem(STORAGE_KEY, formDataJSON);
@@ -33,7 +31,7 @@ function onFormSubmit(e) {
   }
 }
 
-function populateTextarea() {
+function populateForm() {
   let savedDataJSON = localStorage.getItem(STORAGE_KEY);
   if (savedDataJSON) {
     const { email, message } = JSON.parse(savedDataJSON);
