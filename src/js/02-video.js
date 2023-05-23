@@ -5,6 +5,14 @@ const STORAGE_KEY = 'videoplayer-current-time';
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
+player.on('play', function () {
+  console.log('played the video!');
+});
+
+player.getVideoTitle().then(function (title) {
+  console.log('title:', title);
+});
+
 const onСurrentTime = function (e) {
   localStorage.setItem(STORAGE_KEY, e.seconds);
 };
